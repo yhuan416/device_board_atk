@@ -1,0 +1,8 @@
+import("//build/ohos.gni")
+
+print("fip_group in")
+group("fip_group") {
+    deps = [
+        "tf-a:tf-a"
+    ]
+}

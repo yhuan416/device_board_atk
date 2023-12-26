@@ -1,0 +1,15 @@
+import("//build/config/clang/clang.gni")
+import("//build/ohos.gni")
+
+tfa_source_dir = "//device/board/atk/dlmp135/fip/tf-a"
+
+action("tf-a") {
+    script = "build_tfa.sh"
+    sources = [ tfa_source_dir ]
+    outputs = [
+        "$root_build_dir/fip/deploy"
+    ]
+    args = [
+        rebase_path("$root_build_dir"),
+    ]
+}

@@ -1,0 +1,8 @@
+soc_company = "st"
+soc_name = "stm32mp135"
+
+import("//build/ohos.gni")
+
+if (!defined(defines)) {
+  defines = []
+}

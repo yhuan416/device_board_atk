@@ -1,0 +1,10 @@
+{
+    "subsystem": "device_dlmp135",
+    "parts": {
+        "device_dlmp135": {
+            "module_list": [
+                "//device/board/atk/dlmp135:dlmp135_group"
+            ]
+        }
+    }
+}
