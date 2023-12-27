@@ -5,6 +5,7 @@ group("fip_group") {
     deps = [
         "tf-a:tf-a",
         "optee:optee",
+        "uboot:uboot",
     ]
 }
 
