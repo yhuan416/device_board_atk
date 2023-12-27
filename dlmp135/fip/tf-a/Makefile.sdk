@@ -145,7 +145,7 @@ endef
 # Set dependencies list for building all
 DEPS = $(addprefix deploy-,$(TF_A_CONFIG))
 #DEPS += fip
-#DEPS += metadata
+DEPS += metadata
 
 help:
 	@echo

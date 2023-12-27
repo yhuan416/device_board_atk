@@ -10,13 +10,17 @@ echo "ROOT_DIR=${ROOT_DIR}"
 
 TFA_SRC_PATH=${ROOT_DIR}/device/board/atk/dlmp135/fip/tf-a
 
-BLD_PATH=${ROOT_BUILD_DIR}/fip/build
-DEPLOYDIR=${ROOT_BUILD_DIR}/fip/deploy
+TFA_BLD_PATH=${ROOT_BUILD_DIR}/fip/tf-a/build
+TFA_DEPLOYDIR=${ROOT_BUILD_DIR}/fip/deploy
 
-rm -rf ${BLD_PATH} ${DEPLOYDIR}
-mkdir -p ${BLD_PATH} ${DEPLOYDIR}
+# rm build dir
+rm -rf ${TFA_BLD_PATH}
 
+# enter tf-a src dir
 cd ${TFA_SRC_PATH}/tf-a-stm32mp-v2.6-stm32mp1-r1
 
+echo ${PATH}
+
 # build 使用环境变量自带的python3
-PATH=/usr/bin/:${PATH} BLD_PATH=${ROOT_BUILD_DIR}/fip/build DEPLOYDIR=${ROOT_BUILD_DIR}/fip/deploy make -f ../Makefile.sdk all
+PATH=/usr/bin/:${PATH} BLD_PATH=${TFA_BLD_PATH} DEPLOYDIR=${TFA_DEPLOYDIR} make -f ../Makefile.sdk all
+

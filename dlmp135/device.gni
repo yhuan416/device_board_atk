@@ -6,3 +6,7 @@ import("//build/ohos.gni")
 if (!defined(defines)) {
   defines = []
 }
+
+declare_args() {
+    # dlmp135_config_path = $device_config_path
+}

@@ -7,7 +7,11 @@ action("tf-a") {
     script = "ohos_build_tfa.sh"
     sources = [ tfa_source_dir ]
     outputs = [
-        "$root_build_dir/fip/deploy"
+        "$root_build_dir/fip/deploy/metadata.bin",
+        "$root_build_dir/fip/deploy/tf-a-stm32mp135d-atk-emmc.stm32",
+        "$root_build_dir/fip/deploy/tf-a-stm32mp135d-atk-sdcard.stm32",
+        "$root_build_dir/fip/deploy/tf-a-stm32mp135d-atk-usb.stm32",
+        "$root_build_dir/fip/deploy/fwconfig/stm32mp135d-atk-fw-config-optee.dtb",
     ]
     args = [
         rebase_path("$root_build_dir"),
