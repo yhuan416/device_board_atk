@@ -1,11 +1,23 @@
 import("//build/ohos.gni")
 
-print("fip_group in")
-group("fip_group") {
+fip_source_dir = "$root_build_dir/fip/deploy"
+fip_target_dir = "$root_build_dir/fip"
+
+print("fip in")
+action("fip") {
+    script = "ohos_build_fip.sh"
+    # sources = [ fip_source_dir ]
+    outputs = [
+        "$fip_target_dir/fip-stm32mp135d-atk-optee.bin",
+    ]
+    args = [
+        rebase_path("$fip_source_dir"),
+        rebase_path("$fip_target_dir"),
+    ]
     deps = [
         "tf-a:tf-a",
+        "tf-a:fiptool",
         "optee:optee",
         "uboot:uboot",
     ]
 }
-
