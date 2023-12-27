@@ -23,10 +23,10 @@ action("fiptool") {
     script = "ohos_build_fiptool.sh"
     sources = [ fiptool_source_dir ]
     outputs = [
-        "$root_build_dir/fip/fiptool/fiptool",
+        "$root_build_dir/fip/fiptool",
     ]
     args = [
         rebase_path("$root_build_dir"),
-        rebase_path("$root_build_dir/fip/fiptool"),
+        rebase_path("$root_build_dir/fip"),
     ]
 }

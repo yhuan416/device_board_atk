@@ -12,7 +12,7 @@ echo "FIP_TARGET_DIR=${FIP_TARGET_DIR}"
 cd ${FIP_SRC_IMAGE_DIR}
 
 # create fip
-../fiptool/fiptool create \
+../fiptool create \
 --nt-fw u-boot-nodtb-stm32mp13.bin \
 --hw-config u-boot-stm32mp135d-atk-trusted.dtb \
 --fw-config fwconfig/stm32mp135d-atk-fw-config-optee.dtb \
