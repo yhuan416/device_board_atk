@@ -1,9 +1,10 @@
 import("//build/ohos.gni")
 import("device.gni")
 
-print("dlmp135_group in")
-group("dlmp135_group") {
+print("dlmp135 in")
+group("dlmp135") {
     deps = [
         "fip:fip",
+        "fip:flashlayout",
     ]
 }

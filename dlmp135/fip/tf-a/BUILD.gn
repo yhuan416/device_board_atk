@@ -1,32 +1,46 @@
 import("//build/config/clang/clang.gni")
 import("//build/ohos.gni")
 
-tfa_source_dir = "//device/board/atk/dlmp135/fip/tf-a"
-fiptool_source_dir = "//device/board/atk/dlmp135/fip/tf-a/tf-a-stm32mp-v2.6-stm32mp1-r1/tools/fiptool"
+tfa_source_dir  = "//device/board/atk/dlmp135/fip/tf-a/tf-a-stm32mp-v2.6-stm32mp1-r1"
+
+tfa_build_dir   = "${root_build_dir}/fip/build/tf-a"
+tfa_deploy_dir  = "${root_build_dir}/fip/deploy"
 
 action("tf-a") {
     script = "ohos_build_tfa.sh"
     sources = [ tfa_source_dir ]
     outputs = [
-        "$root_build_dir/fip/deploy/metadata.bin",
-        "$root_build_dir/fip/deploy/tf-a-stm32mp135d-atk-emmc.stm32",
-        "$root_build_dir/fip/deploy/tf-a-stm32mp135d-atk-sdcard.stm32",
-        "$root_build_dir/fip/deploy/tf-a-stm32mp135d-atk-usb.stm32",
-        "$root_build_dir/fip/deploy/fwconfig/stm32mp135d-atk-fw-config-optee.dtb",
+        "${tfa_deploy_dir}/metadata.bin",
+        "${tfa_deploy_dir}/tf-a-stm32mp135d-atk-emmc.stm32",
+        "${tfa_deploy_dir}/tf-a-stm32mp135d-atk-sdcard.stm32",
+        "${tfa_deploy_dir}/tf-a-stm32mp135d-atk-usb.stm32",
+        "${tfa_deploy_dir}/fwconfig/stm32mp135d-atk-fw-config-optee.dtb",
     ]
     args = [
-        rebase_path("$root_build_dir"),
+        # tf-a 源码目录
+        rebase_path("${tfa_source_dir}"),
+
+        # tf-a 编译目录(临时文件目录)
+        rebase_path("${tfa_build_dir}"),
+
+        # tf-a 部署目录(输出目录)
+        rebase_path("${tfa_deploy_dir}"),
     ]
 }
+
+fiptool_source_dir = "${tfa_source_dir}/tools/fiptool"
 
 action("fiptool") {
     script = "ohos_build_fiptool.sh"
     sources = [ fiptool_source_dir ]
     outputs = [
-        "$root_build_dir/fip/fiptool",
+        "${root_build_dir}/fip/fiptool",
     ]
     args = [
-        rebase_path("$root_build_dir"),
-        rebase_path("$root_build_dir/fip"),
+        # fiptool 源码目录
+        rebase_path("${fiptool_source_dir}"),
+
+        # fiptool 输出目录
+        rebase_path("${root_build_dir}/fip"),
     ]
 }

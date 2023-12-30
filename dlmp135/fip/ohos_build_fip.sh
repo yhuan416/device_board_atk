@@ -19,5 +19,16 @@ cd ${FIP_SRC_IMAGE_DIR}
 --tos-fw tee-header_v2-stm32mp135d-atk.bin \
 --tos-fw-extra1 tee-pager_v2-stm32mp135d-atk.bin \
 --tos-fw-extra2 tee-pageable_v2-stm32mp135d-atk.bin \
-${FIP_TARGET_DIR}/fip-stm32mp135d-atk-optee.bin
+../fip-stm32mp135d-atk-optee.bin
 
+# fip copy to target dir
+mkdir -p ${FIP_TARGET_DIR}/fip
+cp ../fip-stm32mp135d-atk-optee.bin ${FIP_TARGET_DIR}/fip/
+
+# copy arm-trusted-firmware
+mkdir -p ${FIP_TARGET_DIR}/arm-trusted-firmware
+cp metadata.bin \
+tf-a-stm32mp135d-atk-emmc.stm32 \
+tf-a-stm32mp135d-atk-sdcard.stm32 \
+tf-a-stm32mp135d-atk-usb.stm32 \
+${FIP_TARGET_DIR}/arm-trusted-firmware

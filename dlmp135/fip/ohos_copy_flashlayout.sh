@@ -1,0 +1,13 @@
+#!/bin/sh
+
+echo "Copy flashlayout for dlmp135"
+
+FLASHLAYOUT_SRC_PATH=${1}
+FLASHLAYOUT_TARGET_PATH=${2}
+
+echo "FLASHLAYOUT_SRC_PATH=${FLASHLAYOUT_SRC_PATH}"
+echo "FLASHLAYOUT_TARGET_PATH=${FLASHLAYOUT_TARGET_PATH}"
+
+# copy flashlayout
+mkdir -p ${FLASHLAYOUT_TARGET_PATH}/flashlayout
+cp -rf ${FLASHLAYOUT_SRC_PATH}/optee ${FLASHLAYOUT_TARGET_PATH}/flashlayout
