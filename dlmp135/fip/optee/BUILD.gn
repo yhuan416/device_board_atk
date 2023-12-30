@@ -1,18 +1,27 @@
 import("//build/config/clang/clang.gni")
 import("//build/ohos.gni")
 
-optee_source_dir = "//device/board/atk/dlmp135/fip/optee"
+optee_source_dir    = "//device/board/atk/dlmp135/fip/optee/optee-os-stm32mp-3.16.0-stm32mp1-r1"
+
+optee_build_dir     = "${root_build_dir}/fip/build/optee"
+optee_deploy_dir    = "${root_build_dir}/fip/deploy"
 
 action("optee") {
     script = "ohos_build_optee.sh"
     sources = [ optee_source_dir ]
     outputs = [
-        "$root_build_dir/fip/deploy/tee-header_v2-stm32mp135d-atk.bin",
-        "$root_build_dir/fip/deploy/tee-pageable_v2-stm32mp135d-atk.bin",
-        "$root_build_dir/fip/deploy/tee-pager_v2-stm32mp135d-atk.bin",
+        "${optee_deploy_dir}/tee-header_v2-stm32mp135d-atk.bin",
+        "${optee_deploy_dir}/tee-pageable_v2-stm32mp135d-atk.bin",
+        "${optee_deploy_dir}/tee-pager_v2-stm32mp135d-atk.bin",
     ]
     args = [
-        rebase_path("$root_build_dir"),
+        # optee 源码目录
+        rebase_path("${optee_source_dir}"),
+
+        # optee 编译目录
+        rebase_path("${optee_build_dir}"),
+
+        # optee 输出目录
+        rebase_path("${optee_deploy_dir}"),
     ]
 }
-

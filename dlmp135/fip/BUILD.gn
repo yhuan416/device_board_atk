@@ -18,12 +18,13 @@ action("fip") {
     args = [
         # fip构建的地方, 在tf-a,optee,uboot发布的目录
         rebase_path("${fip_source_dir}"),
+        
         # fip输出的地方, 在phone的images目录
         rebase_path("${fip_target_dir}"),
     ]
     deps = [
-        "tf-a:tf-a",
         "tf-a:fiptool",
+        "tf-a:tf-a",
         "optee:optee",
         "uboot:uboot",
     ]
@@ -35,9 +36,10 @@ flashlayout_target_dir = "${root_build_dir}/packages/phone/images"
 
 action("flashlayout") {
     script = "ohos_copy_flashlayout.sh"
+    sources = [ flashlayout_source_dir ]
     outputs = [
-        "${root_build_dir}/packages/phone/images/flashlayout/optee/FlashLayout_emmc_stm32mp135d-atk-optee.tsv",
-        "${root_build_dir}/packages/phone/images/flashlayout/optee/FlashLayout_sdcard_stm32mp135d-atk-optee.tsv",
+        "${flashlayout_target_dir}/flashlayout/optee/FlashLayout_emmc_stm32mp135d-atk-optee.tsv",
+        "${flashlayout_target_dir}/flashlayout/optee/FlashLayout_sdcard_stm32mp135d-atk-optee.tsv",
     ]
     args = [
         rebase_path("${flashlayout_source_dir}"),

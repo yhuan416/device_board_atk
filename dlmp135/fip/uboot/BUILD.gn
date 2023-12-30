@@ -1,16 +1,26 @@
 import("//build/config/clang/clang.gni")
 import("//build/ohos.gni")
 
-uboot_source_dir = "//device/board/atk/dlmp135/fip/uboot"
+uboot_source_dir    = "//device/board/atk/dlmp135/fip/uboot/u-boot-stm32mp-v2021.10-stm32mp1-r1"
+
+uboot_build_dir     = "${root_build_dir}/fip/build/uboot"
+uboot_deploy_dir    = "${root_build_dir}/fip/deploy"
 
 action("uboot") {
     script = "ohos_build_uboot.sh"
     sources = [ uboot_source_dir ]
     outputs = [
-        "$root_build_dir/fip/deploy/u-boot-nodtb-stm32mp13.bin",
-        "$root_build_dir/fip/deploy/u-boot-stm32mp135d-atk-trusted.dtb",
+        "${uboot_deploy_dir}/u-boot-nodtb-stm32mp13.bin",
+        "${uboot_deploy_dir}/u-boot-stm32mp135d-atk-trusted.dtb",
     ]
     args = [
-        rebase_path("$root_build_dir"),
+        # 源码目录
+        rebase_path("${uboot_source_dir}"),
+
+        # 编译目录
+        rebase_path("${uboot_build_dir}"),
+
+        # 输出目录
+        rebase_path("${uboot_deploy_dir}"),
     ]
 }
