@@ -1,0 +1,27 @@
+import("//build/ohos.gni")
+import("//build/ohos/build_var.gni")
+
+kernel_source_path = "//kernel/linux/linux-5.15.24"
+kernel_tmp_path = "//out/kernel/src_tmp"
+bootfs_path = "${product_output_dir}/phone/bootfs"
+
+print("kernel in")
+action("kernel") {
+    script = "ohos_build_kernel.sh"
+    sources = [ kernel_source_path ]
+    outputs = [
+        "${bootfs_path}/uImage",
+        "${bootfs_path}/5.15.24",
+        "${bootfs_path}/stm32mp135d-atk-hdmi.dtb",
+        "${bootfs_path}/stm32mp135d-atk-wifi-bluetooth.dtb",
+        "${bootfs_path}/stm32mp135d-atk.dtb",
+    ]
+    args = [
+        # 源码目录
+        rebase_path("${kernel_source_path}"),
+        # 编译目录
+        rebase_path("${kernel_tmp_path}"),
+        # 输出目录
+        rebase_path("${bootfs_path}"),
+    ]
+}

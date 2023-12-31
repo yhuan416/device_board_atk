@@ -1,0 +1,103 @@
+import("//build/config/python.gni")
+import("//build/ohos.gni")
+import("//build/ohos/build_var.gni")
+
+bootfs_source_path = "//device/board/atk/dlmp135/make_bootfs"
+
+# 简化脚本, 只编 phone
+# import("${build_configs_path}/platforms_list.gni")
+_platform = "phone"
+
+# 镜像名字
+_image_name = "bootfs"
+
+# 生成的文件夹
+current_platform_dir = "${product_output_dir}/${_platform}"
+
+# 生成的镜像文件夹
+bootfs_path = "${current_platform_dir}/${_image_name}"
+
+group("make_bootfs") {
+    deps = [
+        "//third_party/e2fsprogs:e2fsprogs_host_toolchain",
+        "//third_party/f2fs-tools:f2fs-tools_host_toolchain",
+    ]
+
+    deps += [
+        ":${_platform}_bootfs_image",
+    ]
+}
+
+# 拷贝启动脚本
+action("boot_scripts") {
+    boot_scripts_source_dir = "${bootfs_source_path}/bootfs"
+    script = "ohos_copy_scripts.sh"
+    sources = [ boot_scripts_source_dir ]
+    outputs = [ 
+        "${bootfs_path}/boot.scr.uimg",
+        "${bootfs_path}/mmc0_extlinux",
+        "${bootfs_path}/mmc1_extlinux",
+        "${bootfs_path}/alientek_800x480.bmp",
+        "${bootfs_path}/uInitrd",
+    ]
+    args = [
+        # 源码目录
+        rebase_path("${boot_scripts_source_dir}"),
+        # 目标目录
+        rebase_path("${bootfs_path}"),
+    ]
+}
+
+build_image_tools_path = [
+    "//out/${device_name}/clang_x64/thirdparty/e2fsprogs",
+    "//out/${device_name}/clang_x64/thirdparty/f2fs_tools",
+    "//third_party/e2fsprogs/prebuilt/host/bin",
+    "//build/ohos/images/mkimage",
+]
+
+# bootfs image
+action_with_pydeps("${_platform}_bootfs_image") {
+    script = "//build/ohos/images/build_image.py"
+    depfile = "${target_gen_dir}/${target_name}.d"
+
+    deps = [
+        "kernel:kernel",
+        ":boot_scripts",
+    ]
+
+    # 配置文件
+    image_config_file = "${bootfs_source_path}/${_image_name}_image_conf.txt"
+    # 覆盖参数
+    device_image_config_file = "${product_output_dir}/imagesconf/${_image_name}_image_conf.txt"
+    # 输出镜像
+    output_image_file = "${current_platform_dir}/images/${_image_name}.img"
+    # 输入路径, 在 bootfs.gni 中定义
+    image_input_path = bootfs_path
+    sources = [
+        bootfs_source_path,
+        image_config_file,
+    ]
+    outputs = [ output_image_file ]
+    args = [
+        # 必须参数
+        "--depfile",
+            rebase_path(depfile, root_build_dir),
+        "--image-name",
+            _image_name,
+        "--image-config-file",
+            rebase_path(image_config_file, root_build_dir),
+        "--device-image-config-file",
+            rebase_path(device_image_config_file, root_build_dir),
+        "--input-path",
+            rebase_path(image_input_path, root_build_dir),
+        "--output-image",
+            rebase_path(output_image_file, root_build_dir),
+        
+        # 可选参数
+        "--target-cpu",
+            target_cpu,
+        "--build-image-tools-path",
+    ]
+    # 配置工具路径到环境中
+    args += rebase_path(build_image_tools_path, root_build_dir)
+}
