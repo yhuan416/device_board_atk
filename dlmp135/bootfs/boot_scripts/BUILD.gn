@@ -1,0 +1,25 @@
+import("//build/config/python.gni")
+import("//build/ohos.gni")
+import("//build/ohos/build_var.gni")
+
+bootfs_path = "${product_output_dir}/phone/bootfs"
+boot_scripts_source_dir = "//device/board/atk/dlmp135/bootfs/boot_scripts"
+
+# 拷贝启动脚本
+action("boot_scripts") {
+    script = "ohos_copy_scripts.sh"
+    sources = [ boot_scripts_source_dir ]
+    outputs = [ 
+        "${bootfs_path}/boot.scr.uimg",
+        "${bootfs_path}/mmc0_extlinux",
+        "${bootfs_path}/mmc1_extlinux",
+        "${bootfs_path}/alientek_800x480.bmp",
+        "${bootfs_path}/uInitrd",
+    ]
+    args = [
+        # 源码目录
+        rebase_path("${boot_scripts_source_dir}"),
+        # 目标目录
+        rebase_path("${bootfs_path}"),
+    ]
+}

@@ -6,6 +6,6 @@ group("dlmp135") {
     deps = [
         "fip:fip",
         "fip:flashlayout",
-        "make_bootfs:make_bootfs",
+        "bootfs:bootfs",
     ]
 }

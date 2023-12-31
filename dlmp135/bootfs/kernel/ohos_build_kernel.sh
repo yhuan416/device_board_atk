@@ -15,8 +15,7 @@ echo "BOOTFS_PATH=${BOOTFS_PATH}"
 mkdir -p ${KERENL_TMP_PATH}
 
 # copy kernel source
-rm -rf ${KERNEL_DIR_NAME}
-cp -rf ${KERNEL_SRC_PATH} ${KERNEL_DIR_NAME}
+rsync -a --delete --exclude=".git" ${KERNEL_SRC_PATH} ${KERENL_TMP_PATH}/
 
 # build kernel
 cd ${KERNEL_DIR_NAME}
