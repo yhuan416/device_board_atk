@@ -10,10 +10,8 @@ _platform = "phone"
 
 group("bootfs") {
     deps = [
-        "//third_party/e2fsprogs:e2fsprogs_host_toolchain",
-        "//third_party/f2fs-tools:f2fs-tools_host_toolchain",
+        # "//build/ohos/images:make_images",
     ]
-
     deps += [
         ":${_platform}_bootfs_image",
     ]
@@ -40,8 +38,11 @@ action_with_pydeps("${_platform}_bootfs_image") {
     script = "//build/ohos/images/build_image.py"
     depfile = "${target_gen_dir}/${target_name}.d"
     deps = [
+        # "//third_party/e2fsprogs:e2fsprogs_host_toolchain",
+        # "//third_party/f2fs-tools:f2fs-tools_host_toolchain",
         "kernel:kernel",
         "boot_scripts:boot_scripts",
+        # "//build/ohos/images:make_images",
     ]
     # 配置文件
     image_config_file = "${bootfs_source_path}/${_image_name}_image_conf.txt"

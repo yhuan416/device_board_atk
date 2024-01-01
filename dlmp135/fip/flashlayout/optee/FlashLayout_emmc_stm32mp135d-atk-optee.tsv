@@ -8,4 +8,8 @@ P	0x07	metadata2	Binary	mmc1	0x00100000	arm-trusted-firmware/metadata.bin
 PD	0x08	fip-a	FIP	mmc1	0x00180000	fip/fip-stm32mp135d-atk-optee.bin
 P	0x10	boot	System	mmc1	0x00A00000	bootfs.img
 P	0x11	system	FileSystem	mmc1	0x04A00000	system.img
-P	0x12	vendor	FileSystem	mmc1	0x64A00000	vendor.img
+P	0x12	vendor	FileSystem	mmc1	0x84A00000	vendor.img
+P	0x13	sys-prod	FileSystem	mmc1	0xC4A00000	sys-prod.img
+P	0x14	chip-prod	FileSystem	mmc1	0xC7C00000	chip-prod.img
+P	0x15	updater	FileSystem	mmc1	0xCAE00000	updater.img
+PDE	0x16	userdata	FileSystem	mmc1	0xCCE00000	none
