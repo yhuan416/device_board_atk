@@ -7,3 +7,5 @@ P	0x06	metadata1	Binary	mmc1	0x00080000	arm-trusted-firmware/metadata.bin
 P	0x07	metadata2	Binary	mmc1	0x00100000	arm-trusted-firmware/metadata.bin
 PD	0x08	fip-a	FIP	mmc1	0x00180000	fip/fip-stm32mp135d-atk-optee.bin
 P	0x10	boot	System	mmc1	0x00A00000	bootfs.img
+P	0x11	system	FileSystem	mmc1	0x04A00000	system.img
+P	0x12	vendor	FileSystem	mmc1	0x64A00000	vendor.img
